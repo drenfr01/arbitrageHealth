@@ -1,0 +1,55 @@
+<head>
+  <title>Arbitrage Health</title>
+</head>
+
+<body>
+  <h1>Welcome to Arbitrage Health!</h1>
+
+  {{> hello}}
+  {{> info}}
+</body>
+
+<template name="hello">
+  <h1>Instructions</h1>
+</template>
+
+<template name="info">
+  <div class="row">
+    <div class="col-xs-12 col-md-4 col-md-offset-4 page-panel text-center">
+      <select class="form-control" id="drugNameFilter">
+        <option value="All">All</option>
+        {{#each getDrugNames}}
+        <option value="{{ drug }}">{{ this }}</option>
+        {{/each}}
+      </select>
+      <table class="table-bordered table-hover text-center">
+        <thead>
+          <th id="drugName" class="tableSort">Name</th>
+          <th id="drugDosage" class="tableSort">Dosage</th>
+          <th id="numCapsules" class="tableSort">Capsules</th>
+          <th id="retailPrice" class="tableSort">Retail Price</th>
+          <th id="pricePerMg" class="tableSort">Price per Mg</th>
+          <th id="priceDifference" class="tableSort"> Relative Price Diff</th>
+        </thead>
+        <tbody>
+          {{#if Template.subscriptionsReady}}
+          {{#each getDrugs}}
+          <tr>
+            <td>{{drug}}</td>
+            <td>{{drugDosage}}</td>
+            <td>{{numCapsules}}</td>
+            <td>{{retailPrice}}</td>
+            <td>{{pricePerMg}}</td>
+            <td>{{priceDifference}}</td>
+          </tr>
+          {{else}}
+          <tr><td>There are no drugs to display</td></tr>
+          {{/each}}
+          {{else}}
+          {{> spinner}}
+          {{/if}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>
